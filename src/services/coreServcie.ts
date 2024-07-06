@@ -11,7 +11,7 @@ export class CoreService {
     return await this.ExcelAuthConnector.createAuthUrl();
   }
 
-  public getAuthToken = async (): Promise<string | null> => {
-	return await this.ExcelAuthConnector.getAuthToken();
+  public getAuthToken = async (code): Promise<string | null> => {
+	return await this.ExcelAuthConnector.getAuthToken(code);
   }
 }
