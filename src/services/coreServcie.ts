@@ -1,11 +1,14 @@
+import { DataFetchConnector } from "../connectors/DataFetchConnector";
 import { ExcelAuthConnector } from "../connectors/ExcelAuthConnector";
 import { ExcelSheetsConnector } from "../connectors/ExcelSheetsConnector";
 
 export class CoreService {
+  private DataFetchConnector: DataFetchConnector;
   private ExcelAuthConnector: ExcelAuthConnector;
   private ExcelSheetsConnector: ExcelSheetsConnector;
 
   constructor() {
+    this.DataFetchConnector = new DataFetchConnector();
     this.ExcelAuthConnector = new ExcelAuthConnector();
     this.ExcelSheetsConnector = new ExcelSheetsConnector();
   }
@@ -63,6 +66,14 @@ export class CoreService {
       sheetName,
       tableName,
       rowIds
+    );
+  }
+
+  public fetchAndStoreData = async (sheetName, tableName, email) => {
+    return await this.DataFetchConnector.fetchAndStoreData(
+      sheetName,
+      tableName,
+      email
     );
   }
 }

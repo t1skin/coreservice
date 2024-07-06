@@ -1,3 +1,4 @@
+import { table } from "console";
 import { CoreService } from "../services/coreServcie";
 import { Request, Response } from "express";
 
@@ -15,7 +16,7 @@ export class CoreController {
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
-  };
+  }
 
   public getAuthToken = async (req: Request, res: Response) => {
     const code = req.query.code;
@@ -25,7 +26,7 @@ export class CoreController {
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
-  };
+  }
 
   public createSession = async (req: Request, res: Response) => {
     const email = req.query.email;
@@ -35,7 +36,7 @@ export class CoreController {
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
-  };
+  }
 
   public getSheets = async (req: Request, res: Response) => {
     try {
@@ -44,7 +45,7 @@ export class CoreController {
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
-  };
+  }
 
   public createWorksheet = async (req: Request, res: Response) => {
     const sheetName = req.body.sheetName;
@@ -56,7 +57,7 @@ export class CoreController {
         .status(error.response.status)
         .json({ error: error.response.data.message });
     }
-  };
+  }
 
   public deleteWorksheet = async (req: Request, res: Response) => {
     const sheetName = req.params.sheetName;
@@ -68,7 +69,7 @@ export class CoreController {
         .status(error.response.status)
         .json({ error: error.response.data.message });
     }
-  };
+  }
 
   public getTableData = async (req: Request, res: Response) => {
     const tableName = req.params.tableName;
@@ -84,7 +85,7 @@ export class CoreController {
         .status(error.response.status)
         .json({ error: error.response.data.message });
     }
-  };
+  }
 
   public createTable = async (req: Request, res: Response) => {
     const { sheetName, tableAddress, tableHasHeaders } = req.body;
@@ -100,7 +101,7 @@ export class CoreController {
         .status(error.response.status)
         .json({ error: error.response.data.message });
     }
-  };
+  }
 
   public deleteTable = async (req: Request, res: Response) => {
     const tableName = req.params.tableName;
@@ -113,15 +114,12 @@ export class CoreController {
         .status(error.response.status)
         .json({ error: error.response.data.message });
     }
-  };
+  }
 
   public addDataToTable = async (req: Request, res: Response) => {
     const tableName = req.params.tableName;
     const sheetName = req.query.sheetName;
     const file = req.file;
-
-    console.log(tableName, sheetName, file);
-
     try {
       const response = await this.coreService.addDataToTable(
         sheetName,
@@ -130,12 +128,11 @@ export class CoreController {
       );
       return res.status(response.status).json(response.data);
     } catch (error) {
-      console.log(error);
       return res
         .status(error.response.status)
         .json({ error: error.response.data.message });
     }
-  };
+  }
 
   public deleteDataFromTable = async (req: Request, res: Response) => {
     const tableName = req.params.tableName;
@@ -146,6 +143,22 @@ export class CoreController {
         sheetName,
         tableName,
         rowIds
+      );
+      return res.status(response.status).json(response.data);
+    } catch (error) {
+      return res
+        .status(error.response.status)
+        .json({ error: error.response.data.message });
+    }
+  }
+
+  public fetchAndStoreData = async (req: Request, res: Response) => {
+    const { sheetName, tableName, email } = req.query;
+    try {
+      const response = await this.coreService.fetchAndStoreData(
+        sheetName,
+        tableName,
+        email
       );
       return res.status(response.status).json(response.data);
     } catch (error) {
