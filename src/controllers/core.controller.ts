@@ -1,4 +1,4 @@
-import { CoreService } from '../entities/coreServcie';
+import { CoreService } from '../services/coreServcie';
 import { Request, Response } from 'express';
 
 export class CoreController {
