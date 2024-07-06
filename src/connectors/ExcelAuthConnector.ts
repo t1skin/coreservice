@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export class ExcelConnector {
+export class ExcelAuthConnector {
 	private url: string;
 
 	constructor() {
-		this.url = 'http://localhost:8001';
+		this.url = 'http://localhost:8001/excel_auth';
 	}
 
 	public createAuthUrl = async (): Promise<string | null> => {
@@ -12,7 +12,7 @@ export class ExcelConnector {
 			const response = await axios.get(`${this.url}/get_auth_url`);
 			return response.data;
 		} catch (error) {
-			console.log('Error fetching auth url:', error);
+			console.log('Error fetching auth url:', error.message);
 			return null;
 		}
 	}
