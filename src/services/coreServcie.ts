@@ -1,16 +1,36 @@
-import { DataFetchConnector } from "../connectors/DataFetchConnector";
-import { ExcelAuthConnector } from "../connectors/ExcelAuthConnector";
-import { ExcelSheetsConnector } from "../connectors/ExcelSheetsConnector";
+import { 
+  VisualizationConnector 
+} from "../connectors/analyticservice/VisualizationConnector";
+
+import {
+  DataAnalysisConnector
+} from "../connectors/analyticservice/DataAnalysisConnector";
+
+import {
+  ExcelSheetsConnector
+} from "../connectors/excelservice/ExcelSheetsConnector";
+
+import {
+  DataFetchConnector
+} from "../connectors/analyticservice/DataFetchConnector";
+
+import {
+  ExcelAuthConnector
+} from "../connectors/excelservice/ExcelAuthConnector";
 
 export class CoreService {
   private DataFetchConnector: DataFetchConnector;
   private ExcelAuthConnector: ExcelAuthConnector;
   private ExcelSheetsConnector: ExcelSheetsConnector;
+  private DataAnalysisConnector: DataAnalysisConnector;
+  private VisualizationConnector: VisualizationConnector;
 
   constructor() {
     this.DataFetchConnector = new DataFetchConnector();
     this.ExcelAuthConnector = new ExcelAuthConnector();
     this.ExcelSheetsConnector = new ExcelSheetsConnector();
+    this.DataAnalysisConnector = new DataAnalysisConnector();
+    this.VisualizationConnector = new VisualizationConnector();
   }
 
   public getAuthUrl = async (): Promise<string | null> => {
@@ -75,5 +95,17 @@ export class CoreService {
       tableName,
       email
     );
+  }
+
+  public analyzeData = async (dataId) => {
+    return await this.DataAnalysisConnector.analyzeData(dataId);
+  }
+
+  public getAnalysisById = async (analysisId) => {
+    return await this.DataAnalysisConnector.getAnalysisById(analysisId);
+  }
+
+  public generateVisualisation = async (analysisId) => {
+    return await this.VisualizationConnector.generateVisualisatoin(analysisId);
   }
 }

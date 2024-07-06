@@ -1,7 +1,7 @@
-import express from 'express';
-import excelAuthRoutes from './routes/excel.auth.routes';
 import excelSheetsRoutes from './routes/excel.sheets.routes';
-import analysisDataRoutes from './routes/analysis.data.routes';
+import excelAuthRoutes from './routes/excel.auth.routes';
+import analyticsRoutes from './routes/analytics.routes';
+import express from 'express';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use('/excel', excelAuthRoutes);
 app.use('/excel', excelSheetsRoutes);
-app.use('/analysis', analysisDataRoutes);
+app.use('/analytics', analyticsRoutes);
 
 
 app.listen(PORT, () => {

@@ -167,4 +167,40 @@ export class CoreController {
         .json({ error: error.response.data.message });
     }
   }
+
+  public analyzeData = async (req: Request, res: Response) => {
+    const dataId = req.query.dataId;
+    try {
+      const response = await this.coreService.analyzeData(dataId);
+      return res.status(response.status).json(response.data);
+    } catch (error) {
+      return res
+        .status(error.response.status)
+        .json({ error: error.response.data.message });
+    } 
+  }
+
+  public getAnalysisById = async (req: Request, res: Response) => {
+    const analysisId = req.params.analysisId;
+    try {
+      const response = await this.coreService.getAnalysisById(analysisId);
+      return res.status(response.status).json(response.data);
+    } catch (error) {
+      return res
+        .status(error.response.status)
+        .json({ error: error.response.data.message });
+    } 
+  }
+
+  public generateVisualisation = async (req: Request, res: Response) => {
+    const analysisId = req.params.analysisId;
+    try {
+      const response = await this.coreService.generateVisualisation(analysisId);
+      return res.status(response.status).json(response.data);
+    } catch (error) {
+      return res
+        .status(error.response.status)
+        .json({ error: error.response.data.message });
+    } 
+  }
 }
