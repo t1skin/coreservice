@@ -16,4 +16,13 @@ export class CoreController {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
+  public getAuthToken = async (req: Request, res: Response) => {
+    try {
+      const response = await this.coreService.getAuthToken();
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 }
